@@ -10,13 +10,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import pom.AccountProfilePage;
 import pom.LoginPage;
 import pom.MainPage;
+import pom.RegisterPage;
 
 import java.util.concurrent.TimeUnit;
 
 public class SiteTransitionsTest {
 
     private WebDriver driver;
-
+    private String expectedTextHeaderPage = "Профиль";
+    private String expectedTextAfterLogin = "Соберите бургер";
+    private String expectedTextInput = "Вход";
+    private String expectedTextSauce = "Соусы";
+    private String expectedTextBulki = "Булки";
+    private String expectedTextNachinki = "Начинки";
     @Before
     public void startUp() {
         WebDriverManager.chromedriver().setup();
@@ -31,19 +37,21 @@ public class SiteTransitionsTest {
     public void AccountTransitionTest() {
         LoginPage loginPage = new LoginPage(driver);
         MainPage mainPage= new MainPage(driver);
+        AccountProfilePage accountProfilePage = new AccountProfilePage(driver);
         loginPage.open();
         driver.manage().window().maximize();
         loginPage.fillEmailField();
         loginPage.fillPasswordField();
         loginPage.clickLoginButton();
         mainPage.clickAccountButton();
-        Assert.assertEquals("Профиль", driver.findElement(By.xpath (".//a[text()='Профиль']")).getText());
+        Assert.assertEquals(expectedTextHeaderPage, accountProfilePage.getTextHeaderPage());
     }
 
     @Test
     public void LogOutTransitionTest() {
         AccountProfilePage accountProfilePage = new AccountProfilePage(driver);
         MainPage mainPage= new MainPage(driver);
+        RegisterPage registerPage = new RegisterPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
         driver.manage().window().maximize();
@@ -52,7 +60,7 @@ public class SiteTransitionsTest {
         loginPage.clickLoginButton();
         mainPage.clickAccountButton();
         accountProfilePage.clickLogOutButton();
-        Assert.assertEquals("Вход", driver.findElement(By.xpath (".//h2[text()='Вход']")).getText());
+        Assert.assertEquals(expectedTextInput, registerPage.getTextAboutInput());
     }
 
     @Test
@@ -67,7 +75,7 @@ public class SiteTransitionsTest {
         mainPage.clickAccountButton();
         accountProfilePage.clickLogOutButton();
         accountProfilePage.clickConstructorButton();
-        Assert.assertEquals("Соберите бургер", driver.findElement(By.xpath(".//h1[text()='Соберите бургер']")).getText());
+        Assert.assertEquals(expectedTextAfterLogin, mainPage.getTextAfterLogin());
     }
 
     @Test
@@ -80,7 +88,7 @@ public class SiteTransitionsTest {
         loginPage.fillPasswordField();
         loginPage.clickLoginButton();
         mainPage.clickSauceButton();
-        Assert.assertEquals("Соусы", mainPage.getFromConstructorSauce());
+        Assert.assertEquals(expectedTextSauce, mainPage.getFromConstructorSauce());
     }
 
         @Test
@@ -94,7 +102,7 @@ public class SiteTransitionsTest {
             loginPage.clickLoginButton();
             mainPage.clickSauceButton();
             mainPage.clickBulkiButton();
-            Assert.assertEquals("Булки", mainPage.getTextFromConstructorBulki());
+            Assert.assertEquals(expectedTextBulki, mainPage.getTextFromConstructorBulki());
         }
 
     @Test
@@ -107,7 +115,7 @@ public class SiteTransitionsTest {
         loginPage.fillPasswordField();
         loginPage.clickLoginButton();
         mainPage.clickNachinkiButton();
-        Assert.assertEquals("Начинки", mainPage.getTextFromConstructorNachinki());
+        Assert.assertEquals(expectedTextNachinki, mainPage.getTextFromConstructorNachinki());
     }
 
 

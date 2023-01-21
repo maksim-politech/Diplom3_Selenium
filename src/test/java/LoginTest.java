@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginTest {
 
     private WebDriver driver;
+    private String expectedTextAfterLogin = "Соберите бургер";
 
     @Before
     public void startUp() {
@@ -23,44 +24,46 @@ public class LoginTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
     }
 
     @Test
     public void LoginTest() {
         LoginPage loginPage = new LoginPage(driver);
+        MainPage mainPage= new MainPage(driver);
         loginPage.open();
         driver.manage().window().maximize();
         loginPage.fillEmailField();
         loginPage.fillPasswordField();
         loginPage.clickLoginButton();
-        Assert.assertEquals("Соберите бургер", driver.findElement(By.xpath (".//h1[text()='Соберите бургер']")).getText());
+        Assert.assertEquals(expectedTextAfterLogin, mainPage.getTextAfterLogin());
     }
 
     @Test
     public void LoginFromPasswordRecoveryTest() {
         LoginPage loginPage = new LoginPage(driver);
+        MainPage mainPage= new MainPage(driver);
         loginPage.open();
         loginPage.scrollPasswordRecoveryButton();
         loginPage.clickPasswordRecoveryButton();
-        driver.findElement(By.xpath (".//a[text()='Войти']")).click(); //не стал ради одного локатора создавать pom для этой страницы восстановления
+        loginPage.clickLoginButtonRecoveryPasswordPage();
         loginPage.fillEmailField();
         loginPage.fillPasswordField();
         loginPage.clickLoginButton();
-        Assert.assertEquals("Соберите бургер", driver.findElement(By.xpath (".//h1[text()='Соберите бургер']")).getText());
+        Assert.assertEquals(expectedTextAfterLogin, mainPage.getTextAfterLogin());
     }
 
     @Test
     public void LoginFromRegisterPageTest() {
         LoginPage loginPage = new LoginPage(driver);
+        MainPage mainPage= new MainPage(driver);
         RegisterPage registerPage = new RegisterPage(driver);
         registerPage.open();
-        //driver.manage().window().maximize();
-        driver.findElement(By.xpath(".//a[text()='Войти']")).click();
+        registerPage.clickLoginButton();
         loginPage.fillEmailField();
         loginPage.fillPasswordField();
         loginPage.clickLoginButton();
-        Assert.assertEquals("Соберите бургер", driver.findElement(By.xpath(".//h1[text()='Соберите бургер']")).getText());
+        Assert.assertEquals(expectedTextAfterLogin, mainPage.getTextAfterLogin());
     }
 
     @Test
@@ -68,12 +71,11 @@ public class LoginTest {
         MainPage mainPage= new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         mainPage.open();
-        //driver.manage().window().maximize();
         mainPage.clickLoginButton();
         loginPage.fillEmailField();
         loginPage.fillPasswordField();
         loginPage.clickLoginButton();
-        Assert.assertEquals("Соберите бургер", driver.findElement(By.xpath(".//h1[text()='Соберите бургер']")).getText());
+        Assert.assertEquals(expectedTextAfterLogin, mainPage.getTextAfterLogin());
     }
 
     @Test
@@ -81,12 +83,11 @@ public class LoginTest {
         MainPage mainPage= new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         mainPage.open();
-        //driver.manage().window().maximize();
         mainPage.clickAccountButton();
         loginPage.fillEmailField();
         loginPage.fillPasswordField();
         loginPage.clickLoginButton();
-        Assert.assertEquals("Соберите бургер", driver.findElement(By.xpath(".//h1[text()='Соберите бургер']")).getText());
+        Assert.assertEquals(expectedTextAfterLogin, mainPage.getTextAfterLogin());
     }
     @After
     public void tearDown() {

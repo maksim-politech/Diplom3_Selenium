@@ -21,6 +21,9 @@ public class MainPage {
    public final By TextFromConstructorSauce = By.xpath(".//h2[text()='Соусы']");
 
    public final By TextFromConstructorNachinki = By.xpath(".//h2[text()='Начинки']");
+
+    private final By textAfterLogin = By.xpath(".//h1[text()='Соберите бургер']");
+
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -57,5 +60,9 @@ public class MainPage {
     }
     public String getTextFromConstructorNachinki(){
         return driver.findElement(TextFromConstructorNachinki).getText();
+    }
+
+    public String getTextAfterLogin(){
+        return driver.findElement(textAfterLogin).getText();
     }
 }

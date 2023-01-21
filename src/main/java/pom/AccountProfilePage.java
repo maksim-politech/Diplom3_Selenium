@@ -6,18 +6,16 @@ import org.openqa.selenium.WebDriver;
 public class AccountProfilePage {
 
     private final WebDriver driver;
-    private final String url = "https://stellarburgers.nomoreparties.site/account/profile";
 
     private final By ConstructorButton = By.xpath(".//a[@href='/']");
     private final By LogOutButton = By.xpath(".//button[text()='Выход']");
+
+    private final By textHeaderPage = By.xpath (".//a[text()='Профиль']");
 
     public AccountProfilePage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public  void open() {
-        driver.get(url);
-    }
 
     public void clickConstructorButton(){
         driver.findElement(ConstructorButton).click();
@@ -25,6 +23,10 @@ public class AccountProfilePage {
 
     public void clickLogOutButton(){
         driver.findElement(LogOutButton).click();
+    }
+
+    public String getTextHeaderPage(){
+        return driver.findElement(textHeaderPage).getText();
     }
 
 }

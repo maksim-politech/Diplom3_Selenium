@@ -1,5 +1,6 @@
 package pom;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -12,8 +13,11 @@ public class RegisterPage {
     private final By passwordField =By.xpath(".//input[@class='text input__textfield text_type_main-default' and @type='password']");
     private final By registerButton = By.xpath(".//button[text()='Зарегистрироваться']");
 
-    public final By TextAboutIncorrectPassword = By.xpath(".//p[@class='input__error text_type_main-default']");
+    public final By textAboutIncorrectPassword = By.xpath(".//p[@class='input__error text_type_main-default']");
 
+    public final By textAboutInput =By.xpath (".//h2[text()='Вход']");
+
+    private final By loginButton = By.xpath (".//a[text()='Войти']");
     public RegisterPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -27,7 +31,7 @@ public class RegisterPage {
     }
 
     public void fillEmailField(){
-        driver.findElement(emailField).sendKeys("Test234WHEfg@mail.ru");
+        driver.findElement(emailField).sendKeys((RandomStringUtils.randomAlphanumeric(5))+"@mail.ru");
     }
 
     public void fillPasswordField(){
@@ -43,6 +47,14 @@ public class RegisterPage {
     }
 
     public String getTextAboutIncorrectPassword(){
-        return driver.findElement(TextAboutIncorrectPassword).getText();
+        return driver.findElement(textAboutIncorrectPassword).getText();
+    }
+
+    public String getTextAboutInput(){
+        return driver.findElement(textAboutInput).getText();
+    }
+
+    public void clickLoginButton(){
+        driver.findElement(loginButton).click();
     }
 }

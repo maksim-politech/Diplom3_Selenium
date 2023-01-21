@@ -3,7 +3,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,7 +11,8 @@ import pom.RegisterPage;
 import java.util.concurrent.TimeUnit;
 
 public class RegisterTest {
-
+    private String expectedTextInput = "Вход";
+    private String expectedTextAboutIncorrectPassword = "Некорректный пароль";
     private WebDriver driver;
 
     @Before
@@ -32,11 +32,9 @@ public class RegisterTest {
         registerPage.fillEmailField();
         registerPage.fillPasswordField();
         registerPage.clickRegisterButton();
-        Assert.assertEquals("Вход", driver.findElement(By.xpath (".//h2[text()='Вход']")).getText());
+        Assert.assertEquals(expectedTextInput,  registerPage.getTextAboutInput());
     }
 
-
-     private String expectedTextAboutIncorrectPassword = "Некорректный пароль";
     @Test
     public void registrationWIncorrectPasswordTest(){
         RegisterPage registerPage= new RegisterPage(driver);
