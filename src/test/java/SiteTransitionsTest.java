@@ -3,7 +3,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -23,6 +22,8 @@ public class SiteTransitionsTest {
     private String expectedTextSauce = "Соусы";
     private String expectedTextBulki = "Булки";
     private String expectedTextNachinki = "Начинки";
+    private String email;
+    private String password;
     @Before
     public void startUp() {
         WebDriverManager.chromedriver().setup();
@@ -30,6 +31,8 @@ public class SiteTransitionsTest {
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
+        email="Test235dfgа235613@mail.ru";
+        password= "fw34252fe2";
     }
 
 
@@ -40,8 +43,8 @@ public class SiteTransitionsTest {
         AccountProfilePage accountProfilePage = new AccountProfilePage(driver);
         loginPage.open();
         driver.manage().window().maximize();
-        loginPage.fillEmailField();
-        loginPage.fillPasswordField();
+        loginPage.fillEmailField(email);
+        loginPage.fillPasswordField(password);
         loginPage.clickLoginButton();
         mainPage.clickAccountButton();
         Assert.assertEquals(expectedTextHeaderPage, accountProfilePage.getTextHeaderPage());
@@ -55,8 +58,8 @@ public class SiteTransitionsTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
         driver.manage().window().maximize();
-        loginPage.fillEmailField();
-        loginPage.fillPasswordField();
+        loginPage.fillEmailField(email);
+        loginPage.fillPasswordField(password);
         loginPage.clickLoginButton();
         mainPage.clickAccountButton();
         accountProfilePage.clickLogOutButton();
@@ -69,8 +72,8 @@ public class SiteTransitionsTest {
         MainPage mainPage= new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
-        loginPage.fillEmailField();
-        loginPage.fillPasswordField();
+        loginPage.fillEmailField(email);
+        loginPage.fillPasswordField(password);
         loginPage.clickLoginButton();
         mainPage.clickAccountButton();
         accountProfilePage.clickLogOutButton();
@@ -84,8 +87,8 @@ public class SiteTransitionsTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
         driver.manage().window().maximize();
-        loginPage.fillEmailField();
-        loginPage.fillPasswordField();
+        loginPage.fillEmailField(email);
+        loginPage.fillPasswordField(password);
         loginPage.clickLoginButton();
         mainPage.clickSauceButton();
         Assert.assertEquals(expectedTextSauce, mainPage.getFromConstructorSauce());
@@ -97,8 +100,8 @@ public class SiteTransitionsTest {
             LoginPage loginPage = new LoginPage(driver);
             loginPage.open();
             driver.manage().window().maximize();
-            loginPage.fillEmailField();
-            loginPage.fillPasswordField();
+            loginPage.fillEmailField(email);
+            loginPage.fillPasswordField(password);
             loginPage.clickLoginButton();
             mainPage.clickSauceButton();
             mainPage.clickBulkiButton();
@@ -111,8 +114,8 @@ public class SiteTransitionsTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
         driver.manage().window().maximize();
-        loginPage.fillEmailField();
-        loginPage.fillPasswordField();
+        loginPage.fillEmailField(email);
+        loginPage.fillPasswordField(password);
         loginPage.clickLoginButton();
         mainPage.clickNachinkiButton();
         Assert.assertEquals(expectedTextNachinki, mainPage.getTextFromConstructorNachinki());

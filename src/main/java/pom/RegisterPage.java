@@ -26,20 +26,20 @@ public class RegisterPage {
         driver.get(url);
     }
 
-    public void fillNameField(){
-        driver.findElement(nameField).sendKeys("Максим");
+    public void fillNameField(String name){
+        driver.findElement(nameField).sendKeys(name);
     }
 
-    public void fillEmailField(){
-        driver.findElement(emailField).sendKeys((RandomStringUtils.randomAlphanumeric(5))+"@mail.ru");
+    public void fillEmailField(String email){
+        driver.findElement(emailField).sendKeys(email);
     }
 
-    public void fillPasswordField(){
-        driver.findElement(passwordField).sendKeys("fw34252fe2");
+    public void fillPasswordField(String password){
+        driver.findElement(passwordField).sendKeys(password);
     }
 
-    public void fillPasswordFieldWIncorrect(){
-        driver.findElement(passwordField).sendKeys("12345");
+    public void fillPasswordFieldWIncorrect(String incorrectPassword){
+        driver.findElement(passwordField).sendKeys(incorrectPassword);
     }
 
     public void clickRegisterButton(){

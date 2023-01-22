@@ -24,12 +24,12 @@ public class LoginPage {
         driver.get(url);
     }
 
-    public void fillEmailField(){
-        driver.findElement(emailField).sendKeys("Test235dfgа235613@mail.ru");
+    public void fillEmailField(String email){
+        driver.findElement(emailField).sendKeys(email);
     }
 
-    public void fillPasswordField(){
-        driver.findElement(passwordField).sendKeys("fw34252fe2");
+    public void fillPasswordField(String password){
+        driver.findElement(passwordField).sendKeys(password);
     }
 
 
